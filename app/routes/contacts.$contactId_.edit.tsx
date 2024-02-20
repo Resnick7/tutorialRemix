@@ -87,7 +87,7 @@ export default function EditContact() {
       <p>
         <button type="submit">Save</button>
         
-        <button onClick={()=>emptyContact(contact.id)} type="button">Cancel</button>
+        <button onClick={() => navigate(-1)} type="button">Cancel</button>
       </p>
     </Form>
   );

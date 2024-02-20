@@ -96,12 +96,6 @@ export async function deleteContact(id: string) {
   fakeContacts.destroy(id);
 }
 
-export async function emptyContact(id: string) {
-  if ((<HTMLInputElement>document.getElementsByName("first")).val().lenght == 0 && (<HTMLInputElement>document.getElementsByName("last")).val().lenght == 0 && (<HTMLInputElement>document.getElementsByName("twitter")).val().lenght == 0 && (<HTMLInputElement>document.getElementsByName("avatar")).val().lenght == 0){
-  deleteContact(Id);
-  }
-  return () => navigate(-1);
-}
 
 [
   {
