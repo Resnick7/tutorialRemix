@@ -10,7 +10,7 @@ import {
   } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
-import { getContact, updateContact, emptyContact } from "../data";
+import { getContact, updateContact} from "../data";
 
 export const loader = async ({
   params,
