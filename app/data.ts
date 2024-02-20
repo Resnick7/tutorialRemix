@@ -25,7 +25,8 @@ export type ContactRecord = ContactMutation & {
 ////////////////////////////////////////////////////////////////////////////////
 // This is just a fake DB table. In a real app you'd be talking to a real db or
 // fetching from an existing API.
-const fakeContacts = {
+
+  const fakeContacts = {
   records: {} as Record<string, ContactRecord>,
 
   async getAll(): Promise<ContactRecord[]> {
@@ -93,6 +94,13 @@ export async function updateContact(id: string, updates: ContactMutation) {
 
 export async function deleteContact(id: string) {
   fakeContacts.destroy(id);
+}
+
+export async function emptyContact(id: string) {
+  if ((<HTMLInputElement>document.getElementsByName("first")).val().lenght == 0 && (<HTMLInputElement>document.getElementsByName("last")).val().lenght == 0 && (<HTMLInputElement>document.getElementsByName("twitter")).val().lenght == 0 && (<HTMLInputElement>document.getElementsByName("avatar")).val().lenght == 0){
+  deleteContact(Id);
+  }
+  return () => navigate(-1);
 }
 
 [

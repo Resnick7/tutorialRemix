@@ -10,18 +10,7 @@ import {
   } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
-import { getContact, updateContact } from "../data";
-
-export const action = async ({
-  params,
-  request,
-}: ActionFunctionArgs) => {
-  invariant(params.contactId, "Missing contactId param");
-  const formData = await request.formData();
-  const updates = Object.fromEntries(formData);
-  await updateContact(params.contactId, updates);
-  return redirect(`/contacts/${params.contactId}`);
-};
+import { getContact, updateContact, emptyContact } from "../data";
 
 export const loader = async ({
   params,
@@ -34,6 +23,16 @@ export const loader = async ({
   return json({ contact });
 };
 
+export const action = async ({
+  params,
+  request,
+}: ActionFunctionArgs) => {
+  invariant(params.contactId, "Missing contactId param");
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  await updateContact(params.contactId, updates);
+  return redirect(`/contacts/${params.contactId}`);
+};
 
 export default function EditContact() {
   const { contact } = useLoaderData<typeof loader>();
@@ -88,7 +87,7 @@ export default function EditContact() {
       <p>
         <button type="submit">Save</button>
         
-        <button onClick={() => navigate(-1)} type="button">Cancel</button>
+        <button onClick={()=>emptyContact(contact.id)} type="button">Cancel</button>
       </p>
     </Form>
   );

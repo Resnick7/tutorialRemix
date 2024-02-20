@@ -23,8 +23,8 @@ import appStylesHref from "./app.css";
 import { createEmptyContact, getContacts } from "./data";
 
 export const action = async () => {
-  const contact = await createEmptyContact();
-  return redirect(`/contacts/${contact.id}/edit`);
+  
+  return redirect(`/contacts/new`);
 };
 
 export const links: LinksFunction = () => [
