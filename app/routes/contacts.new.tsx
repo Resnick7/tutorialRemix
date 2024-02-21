@@ -6,7 +6,7 @@ import {
  useNavigate,
   } from "@remix-run/react";
 
-import { updateContact,createEmptyContact, isEmpty } from "../data";
+import { updateContact,createContact, isEmpty } from "../data";
 
 export const action = async ({
   request,
@@ -14,8 +14,7 @@ export const action = async ({
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
   if (!isEmpty()){
-    const contact = await createEmptyContact();
-    await updateContact(contact.id, updates);
+    const contact = await createContact(updates);
     /* Comprobar si hay un campo vacio. Si lo hay, cambiar la clase a incompleto */
 
     redirect(`/contacts/${contact.id}`);
