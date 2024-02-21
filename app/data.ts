@@ -96,6 +96,13 @@ export async function deleteContact(id: string) {
   fakeContacts.destroy(id);
 }
 
+export async function isEmpty() {
+  let empty = false;
+  if (document.getElementsByName("first").length == 0 && document.getElementsByName("last").length == 0 && document.getElementsByName("twitter").length == 0 && document.getElementsByName("avatar").length == 0){
+    empty = true;
+  }
+  return empty
+}
 
 [
   {

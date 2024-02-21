@@ -5,19 +5,23 @@ import {
  Form,
  useNavigate,
   } from "@remix-run/react";
-import invariant from "tiny-invariant";
 
-import { updateContact,createEmptyContact } from "../data";
+import { updateContact,createEmptyContact, isEmpty } from "../data";
 
 export const action = async ({
   request,
-  params,
 }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
-  const contact = await createEmptyContact();
-  await updateContact(contact.id, updates);
-  return redirect(`/contacts/${contact.id}`);
+  if (!isEmpty()){
+    const contact = await createEmptyContact();
+    await updateContact(contact.id, updates);
+    /* Comprobar si hay un campo vacio. Si lo hay, cambiar la clase a incompleto */
+
+    redirect(`/contacts/${contact.id}`);
+  } else{
+    redirect(`/`)
+  }
 };
 
 export default function EditContact() {
