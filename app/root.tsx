@@ -20,10 +20,9 @@ import { useEffect } from "react";
 
 
 import appStylesHref from "./app.css";
-import { createEmptyContact, getContacts } from "./data";
+import { getContacts } from "./data";
 
 export const action = async () => {
-  
   return redirect(`/contacts/new`);
 };
 

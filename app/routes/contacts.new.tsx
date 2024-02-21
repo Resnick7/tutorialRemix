@@ -1,26 +1,23 @@
-import type {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-} from "@remix-run/node";
+import type {  ActionFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
+
 import { 
  Form,
- useLoaderData,
  useNavigate,
   } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
-import { updateContact } from "../data";
-
+import { updateContact,createEmptyContact } from "../data";
 
 export const action = async ({
   request,
+  params,
 }: ActionFunctionArgs) => {
-  invariant(params.contactId, "Missing contactId param");
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
-  await updateContact(params.contactId, updates);
-  return redirect(`/contacts/${params.contactId}`);
+  const contact = await createEmptyContact();
+  await updateContact(contact.id, updates);
+  return redirect(`/contacts/${contact.id}`);
 };
 
 export default function EditContact() {
