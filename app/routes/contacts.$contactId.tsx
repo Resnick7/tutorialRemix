@@ -60,20 +60,13 @@ export default function Contact() {
             <button type="submit">Edit</button>
           </Form>
 
-          <Form
+          <fetch.Form
             action="destroy"
             method="post"
-            onSubmit={(event) => {
-              const response = confirm(
-                "Please confirm you want to delete this record.",
-              );
-              if (!response) {
-                event.preventDefault();
-              }
-            }}
+            value={favorite ? "false" : "true"}
           >
             <button type="submit">Delete</button>
-          </Form>
+          </fetch.Form>
         </div>
       </div>
     </div>

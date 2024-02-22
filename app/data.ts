@@ -15,6 +15,7 @@ type ContactMutation = {
   twitter?: string;
   notes?: string;
   favorite?: boolean;
+  isDeleted?: boolean;
 };
 
 export type ContactRecord = ContactMutation & {
@@ -54,11 +55,11 @@ const fakeContacts = {
     fakeContacts.records[id] = updatedContact;
     return updatedContact;
   },
-
+/* Cambiamos el código de destroy para que haga un borrado lógico  */
   destroy(id: string): null {
-    delete fakeContacts.records[id];
     return null;
   },
+
 };
 
 ////////////////////////////////////////////////////////////////////////////////
