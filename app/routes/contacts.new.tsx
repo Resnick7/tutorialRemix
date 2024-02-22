@@ -1,26 +1,20 @@
-import type {  ActionFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 
-import { 
- Form,
- useNavigate,
-  } from "@remix-run/react";
+import { Form, useNavigate } from "@remix-run/react";
 
-import { updateContact,createContact, isEmpty } from "../data";
+import { createContact } from "../data";
 
-export const action = async ({
-  request,
-}: ActionFunctionArgs) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
-  if (!isEmpty()){
-    const contact = await createContact(updates);
-    /* Comprobar si hay un campo vacio. Si lo hay, cambiar la clase a incompleto */
+  const contact = await createContact(updates);
 
-    redirect(`/contacts/${contact.id}`);
-  } else{
-    redirect(`/`)
-  }
+  /*  Comprobar si el Form está vacío antes de guardar el contacto
+  if (!isEmpty(updates)){}
+  */
+
+  return redirect(`/contacts/${contact.id}`);
 };
 
 export default function EditContact() {
@@ -35,21 +29,19 @@ export default function EditContact() {
           name="first"
           type="text"
           placeholder="First"
+          id="first"
         />
         <input
           aria-label="Last name"
           name="last"
           placeholder="Last"
           type="text"
+          id="last"
         />
       </p>
       <label>
         <span>Twitter</span>
-        <input
-          name="twitter"
-          placeholder="@jack"
-          type="text"
-        />
+        <input name="twitter" placeholder="@jack" type="text" id="twitter" />
       </label>
       <label>
         <span>Avatar URL</span>
@@ -58,21 +50,20 @@ export default function EditContact() {
           name="avatar"
           placeholder="https://example.com/avatar.jpg"
           type="text"
+          id="avatar"
         />
       </label>
       <label>
         <span>Notes</span>
-        <textarea
-          name="notes"
-          rows={6}
-        />
+        <textarea name="notes" rows={6} />
       </label>
       <p>
         <button type="submit">Save</button>
-        
-        <button onClick={() => navigate(-1)} type="button">Cancel</button>
+
+        <button onClick={() => navigate(-1)} type="button">
+          Cancel
+        </button>
       </p>
     </Form>
   );
 }
-

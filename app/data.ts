@@ -26,7 +26,7 @@ export type ContactRecord = ContactMutation & {
 // This is just a fake DB table. In a real app you'd be talking to a real db or
 // fetching from an existing API.
 
-  const fakeContacts = {
+const fakeContacts = {
   records: {} as Record<string, ContactRecord>,
 
   async getAll(): Promise<ContactRecord[]> {
@@ -76,7 +76,7 @@ export async function getContacts(query?: string | null) {
 
 export async function createContact(updates: ContactMutation) {
   const contact = await fakeContacts.create({});
-  updateContact(contact.id, updates)
+  await updateContact(contact.id, updates);
   return contact;
 }
 
@@ -97,13 +97,20 @@ export async function deleteContact(id: string) {
   fakeContacts.destroy(id);
 }
 
-export async function isEmpty() {
+/* No retorna lo que debería y el flujo no funciona
+export async function isEmpty(formData: ContactMutation) {
   let empty = false;
-  if (document.getElementsByName("first").length == 0 && document.getElementsByName("last").length == 0 && document.getElementsByName("twitter").length == 0 && document.getElementsByName("avatar").length == 0){
+  let first = formData.first;
+  let last = formData.last;
+  let avatar = formData.avatar;
+  let twitter = formData.twitter;
+
+  if (first?.length === 0 && last?.length === 0 && twitter?.length === 0 && avatar?.length === 0){
     empty = true;
   }
-  return empty
+  return empty;
 }
+*/
 
 [
   {
