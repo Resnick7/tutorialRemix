@@ -3,16 +3,21 @@ import { json, redirect } from "@remix-run/node";
 
 import { Form, useNavigate } from "@remix-run/react";
 
-import { createContact } from "../data";
+import { createContact, isEmpty } from "~/data";
+
+import {
+  isRouteErrorResponse,
+  useRouteError,
+} from "@remix-run/react";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const updates = Object.fromEntries(formData);
-  const contact = await createContact(updates);
+  const contactData = Object.fromEntries(formData) as Record<string,string>;
 
-  /*  Comprobar si el Form está vacío antes de guardar el contacto
-  if (!isEmpty(updates)){}
-  */
+  if (isEmpty(contactData)){
+    throw json("Está queriendo guardar un contacto vacío")
+  }
+  const contact = await createContact(contactData);
 
   return redirect(`/contacts/${contact.id}`);
 };
@@ -66,4 +71,30 @@ export default function EditContact() {
       </p>
     </Form>
   );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div>
+        <p>Algo</p>
+        <h1>
+          {error.status} {error.statusText}
+        </h1>
+        <p>{error.data}</p>
+      </div>
+    );
+  } else if (error instanceof Error) {
+    return (
+      <div>
+        <h1>Error</h1>
+        <p>{error.message}</p>
+        <p>The stack trace is:</p>
+        <pre>{error.stack}</pre>
+      </div>
+    );
+  } else {
+    return <h1>Unknown Error</h1>;
+  }
 }
