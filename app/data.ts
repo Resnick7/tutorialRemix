@@ -55,11 +55,10 @@ const fakeContacts = {
     fakeContacts.records[id] = updatedContact;
     return updatedContact;
   },
-/* Cambiamos el código de destroy para que haga un borrado lógico  */
+  /* Cambiamos el código de destroy para que haga un borrado lógico  */
   destroy(id: string): null {
     return null;
   },
-
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -98,13 +97,14 @@ export async function deleteContact(id: string) {
   fakeContacts.destroy(id);
 }
 
-export function isEmpty(contact: Record<string,string>):boolean {
-  return contact?.first.length === 0 &&
+export function isEmpty(contact: Record<string, string>): boolean {
+  return (
+    contact?.first.length === 0 &&
     contact?.last.length === 0 &&
     contact?.twitter.length === 0 &&
     contact?.avatar.length === 0
+  );
 }
-
 
 [
   {

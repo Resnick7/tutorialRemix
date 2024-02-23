@@ -5,17 +5,14 @@ import { Form, useNavigate } from "@remix-run/react";
 
 import { createContact, isEmpty } from "~/data";
 
-import {
-  isRouteErrorResponse,
-  useRouteError,
-} from "@remix-run/react";
+import { isRouteErrorResponse, useRouteError } from "@remix-run/react";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const contactData = Object.fromEntries(formData) as Record<string,string>;
+  const contactData = Object.fromEntries(formData) as Record<string, string>;
 
-  if (isEmpty(contactData)){
-    throw json("Está queriendo guardar un contacto vacío")
+  if (isEmpty(contactData)) {
+    throw json("Está queriendo guardar un contacto vacío");
   }
   const contact = await createContact(contactData);
 

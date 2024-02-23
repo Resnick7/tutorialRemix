@@ -145,29 +145,26 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-      {(isRouteErrorResponse(error))? (
-      <div>
-        <p>Root</p>
-        <h1>
-          {error.status} {error.statusText}
-        </h1>
-        <p>{error.data}</p>
-      </div>
-     ):
-
-  (error instanceof Error)?(
-      <div>
-        <h1>Error</h1>
-        <p>{error.message}</p>
-        <p>The stack trace is:</p>
-        <pre>{error.stack}</pre>
-      </div>
-    ):(
-  <h1>Unknown Error</h1>
-    )}
+        {isRouteErrorResponse(error) ? (
+          <div>
+            <p>Root</p>
+            <h1>
+              {error.status} {error.statusText}
+            </h1>
+            <p>{error.data}</p>
+          </div>
+        ) : error instanceof Error ? (
+          <div>
+            <h1>Error</h1>
+            <p>{error.message}</p>
+            <p>The stack trace is:</p>
+            <pre>{error.stack}</pre>
+          </div>
+        ) : (
+          <h1>Unknown Error</h1>
+        )}
         <Scripts />
       </body>
     </html>
   );
-
 }
