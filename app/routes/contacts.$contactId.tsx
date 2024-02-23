@@ -27,9 +27,9 @@ export default function Contact() {
     <div id="contact">
       <div>
         <img
-          alt={`${contact.first} ${contact.last} avatar`}
-          key={contact.avatar}
-          src={contact.avatar}
+          alt={`${contact?.first} ${contact?.last} avatar`}
+          key={contact?.avatar}
+          src={contact?.avatar}
         />
       </div>
 
@@ -60,13 +60,21 @@ export default function Contact() {
             <button type="submit">Edit</button>
           </Form>
 
-          <fetch.Form
+          <Form
             action="destroy"
             method="post"
-            value={favorite ? "false" : "true"}
+            /*Cambiar onSubmit para que realice el borrado lógico (cambie la característica isDeleted a true) */
+            onSubmit={(event) => {
+              const response = confirm(
+                "Please confirm you want to delete this record."
+              );
+              if (!response) {
+                event.preventDefault();
+              }
+            }}
           >
             <button type="submit">Delete</button>
-          </fetch.Form>
+          </Form>
         </div>
       </div>
     </div>
