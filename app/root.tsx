@@ -14,6 +14,7 @@ import {
   useSubmit,
 } from "@remix-run/react";
 import { useEffect } from "react";
+import { useRouteError, isRouteErrorResponse } from "@remix-run/react";
 
 import appStylesHref from "./app.css";
 import { getContacts } from "./data";
@@ -130,4 +131,43 @@ export default function App() {
       </body>
     </html>
   );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Error</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+      {(isRouteErrorResponse(error))? (
+      <div>
+        <p>Root</p>
+        <h1>
+          {error.status} {error.statusText}
+        </h1>
+        <p>{error.data}</p>
+      </div>
+     ):
+
+  (error instanceof Error)?(
+      <div>
+        <h1>Error</h1>
+        <p>{error.message}</p>
+        <p>The stack trace is:</p>
+        <pre>{error.stack}</pre>
+      </div>
+    ):(
+  <h1>Unknown Error</h1>
+    )}
+        <Scripts />
+      </body>
+    </html>
+  );
+
 }
