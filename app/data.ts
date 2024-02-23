@@ -98,20 +98,13 @@ export async function deleteContact(id: string) {
   fakeContacts.destroy(id);
 }
 
-/* No retorna lo que debería y el flujo no funciona
-export async function isEmpty(formData: ContactMutation) {
-  let empty = false;
-  let first = formData.first;
-  let last = formData.last;
-  let avatar = formData.avatar;
-  let twitter = formData.twitter;
-
-  if (first?.length === 0 && last?.length === 0 && twitter?.length === 0 && avatar?.length === 0){
-    empty = true;
-  }
-  return empty;
+export function isEmpty(contact: Record<string,string>):boolean {
+  return contact?.first.length === 0 &&
+    contact?.last.length === 0 &&
+    contact?.twitter.length === 0 &&
+    contact?.avatar.length === 0
 }
-*/
+
 
 [
   {
