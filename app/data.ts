@@ -55,9 +55,8 @@ const fakeContacts = {
     fakeContacts.records[id] = updatedContact;
     return updatedContact;
   },
-  /* Cambiamos el código de destroy para que haga un borrado lógico  */
+  /* Cambiamos el código de destroy para que haga un borrado lógico, que tome el id y cambie el valor de isDeleted  */
   destroy(id: string): null {
-    
     return null;
   },
 };
@@ -215,7 +214,6 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Giovanni",
     last: "Benussi",
     twitter: "@giovannibenussi",
-    isDeleted: false,
   },
   {
     avatar:
