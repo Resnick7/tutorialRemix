@@ -1,11 +1,11 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, useFetcher, useLoaderData } from "@remix-run/react";
-import type { FunctionComponent } from "react";
+import { Form, useLoaderData } from "@remix-run/react";
+
 import invariant from "tiny-invariant";
 
-import type { ContactRecord } from "../data";
 import { getContact, updateContact } from "../data";
+import { Favorite } from "~/components/favorite";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.contactId, "Missing contactId param");
@@ -35,9 +35,9 @@ export default function Contact() {
 
       <div>
         <h1>
-          {contact.first || contact.last ? (
+          {contact?.first || contact?.last ? (
             <>
-              {contact.first} {contact.last}
+              {contact?.first} {contact?.last}
             </>
           ) : (
             <i>No Name</i>
@@ -45,7 +45,7 @@ export default function Contact() {
           <Favorite contact={contact} />
         </h1>
 
-        {contact.twitter ? (
+        {contact?.twitter ? (
           <p>
             <a href={`https://twitter.com/${contact.twitter}`}>
               {contact.twitter}
@@ -53,7 +53,7 @@ export default function Contact() {
           </p>
         ) : null}
 
-        {contact.notes ? <p>{contact.notes}</p> : null}
+        {contact?.notes ? <p>{contact?.notes}</p> : null}
 
         <div>
           <Form action="edit">
@@ -80,24 +80,3 @@ export default function Contact() {
     </div>
   );
 }
-
-const Favorite: FunctionComponent<{
-  contact: Pick<ContactRecord, "favorite">;
-}> = ({ contact }) => {
-  const fetcher = useFetcher();
-  const favorite = fetcher.formData
-    ? fetcher.formData.get("favorite") === "true"
-    : contact.favorite;
-
-  return (
-    <fetcher.Form method="post">
-      <button
-        aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
-        name="favorite"
-        value={favorite ? "false" : "true"}
-      >
-        {favorite ? "★" : "☆"}
-      </button>
-    </fetcher.Form>
-  );
-};

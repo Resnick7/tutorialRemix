@@ -13,11 +13,12 @@ import {
   useNavigation,
   useSubmit,
 } from "@remix-run/react";
-import { useEffect, FunctionComponent } from "react";
-import { useRouteError, isRouteErrorResponse, useFetcher } from "@remix-run/react";
+import { useEffect } from "react";
+import { useRouteError, isRouteErrorResponse } from "@remix-run/react";
 
 import appStylesHref from "./app.css";
-import { getContacts, ContactRecord } from "./data";
+import { getContacts } from "./data";
+import { Favorite } from "~/components/favorite";
 
 export const action = async () => {
   return redirect(`/contacts/new`);
@@ -89,7 +90,7 @@ export default function App() {
           <nav>
             {contacts.length ? (
               <ul>
-                {contacts.map((contact) => (
+                {contacts.filter(contact => contact.isDeleted === false).map((contact) => (
                   <li key={contact.id}>
                     <NavLink
                       className={({ isActive, isPending }) =>
@@ -104,7 +105,7 @@ export default function App() {
                       ) : (
                         <i>No Name</i>
                       )}{" "}
-                      {contact.favorite ? <span>★</span> : null}
+                      <Favorite contact={contact} />
                     </NavLink>
                   </li>
                 ))}
@@ -167,28 +168,4 @@ export function ErrorBoundary() {
       </body>
     </html>
   );
-}
-
-// Componente favorite
-export function Favorite() {
-  const Favorite: FunctionComponent<{
-    contact: Pick<ContactRecord, "favorite">;
-  }> = ({ contact }) => {
-    const fetcher = useFetcher();
-    const favorite = fetcher.formData
-      ? fetcher.formData.get("favorite") === "true"
-      : contact.favorite;
-  
-    return (
-      <fetcher.Form method="post">
-        <button
-          aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
-          name="favorite"
-          value={favorite ? "false" : "true"}
-        >
-          {favorite ? "★" : "☆"}
-        </button>
-      </fetcher.Form>
-    );
-  };
 }
