@@ -114,6 +114,7 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Shruti",
     last: "Kapoor",
     twitter: "@shrutikapoor08",
+    isDeleted: false,
   },
   {
     avatar:
