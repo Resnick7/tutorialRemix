@@ -90,7 +90,9 @@ export default function App() {
           <nav>
             {contacts.length ? (
               <ul>
-                {contacts.filter(contact => contact.isDeleted === false).map((contact) => (
+                {contacts.
+                filter((contact) => contact.isDeleted != true).
+                map((contact) => (
                   <li key={contact.id}>
                     <NavLink
                       className={({ isActive, isPending }) =>

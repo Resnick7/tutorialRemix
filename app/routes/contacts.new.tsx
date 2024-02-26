@@ -51,6 +51,7 @@ export default function EditContact() {
           aria-label="Avatar URL"
           name="avatar"
           placeholder="https://example.com/avatar.jpg"
+          defaultValue={"holder.js/300x200"}
           type="text"
           id="avatar"
         />

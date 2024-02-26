@@ -1,10 +1,10 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData, useFetcher } from "@remix-run/react";
 
 import invariant from "tiny-invariant";
 
-import { getContact, updateContact } from "../data";
+import { getContact, updateContact, ContactRecord } from "../data";
 import { Favorite } from "~/components/favorite";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
@@ -20,6 +20,13 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
     favorite: formData.get("favorite") === "true",
   });
 };
+
+export function isDeleted(contact: ContactRecord) {
+  const fetcher = useFetcher();
+  const isDeleted = fetcher.formData
+    ? fetcher.formData.get("isDeleted") === "true"
+    : contact.isDeleted;
+}
 
 export default function Contact() {
   const { contact } = useLoaderData<typeof loader>();
@@ -65,12 +72,7 @@ export default function Contact() {
             method="post"
             /*Cambiar onSubmit para que realice el borrado lógico (cambie la característica isDeleted a true) */
             onSubmit={(event) => {
-              const response = confirm(
-                "Please confirm you want to delete this record."
-              );
-              if (!response) {
-                event.preventDefault();
-              }
+              isDeleted(contact);
             }}
           >
             <button type="submit">Delete</button>

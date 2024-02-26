@@ -122,12 +122,14 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Glenn",
     last: "Reyes",
     twitter: "@glnnrys",
+    isDeleted: false,
   },
   {
     avatar:
       "https://sessionize.com/image/9273-400o400o2-3tyrUE3HjsCHJLU5aUJCja.jpg",
     first: "Ryan",
     last: "Florence",
+    isDeleted: false,
   },
   {
     avatar:
@@ -135,12 +137,14 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Oscar",
     last: "Newman",
     twitter: "@__oscarnewman",
+    isDeleted: false,
   },
   {
     avatar:
       "https://sessionize.com/image/fd45-400o400o2-fw91uCdGU9hFP334dnyVCr.jpg",
     first: "Michael",
     last: "Jackson",
+    isDeleted: false,
   },
   {
     avatar:
@@ -148,6 +152,7 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Christopher",
     last: "Chedeau",
     twitter: "@Vjeux",
+    isDeleted: false,
   },
   {
     avatar:
@@ -155,6 +160,7 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Cameron",
     last: "Matheson",
     twitter: "@cmatheson",
+    isDeleted: false,
   },
   {
     avatar:
@@ -162,6 +168,7 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Brooks",
     last: "Lybrand",
     twitter: "@BrooksLybrand",
+    isDeleted: false,
   },
   {
     avatar:
@@ -169,6 +176,7 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Alex",
     last: "Anderson",
     twitter: "@ralex1993",
+    isDeleted: false,
   },
   {
     avatar:
@@ -176,6 +184,7 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Kent C.",
     last: "Dodds",
     twitter: "@kentcdodds",
+    isDeleted: false,
   },
   {
     avatar:
@@ -183,12 +192,14 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Nevi",
     last: "Shah",
     twitter: "@nevikashah",
+    isDeleted: false,
   },
   {
     avatar:
       "https://sessionize.com/image/2694-400o400o2-MYYTsnszbLKTzyqJV17w2q.png",
     first: "Andrew",
     last: "Petersen",
+    isDeleted: false,
   },
   {
     avatar:
@@ -196,6 +207,7 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Scott",
     last: "Smerchek",
     twitter: "@smerchek",
+    isDeleted: false,
   },
   {
     avatar:
@@ -203,6 +215,7 @@ export function isEmpty(contact: Record<string, string>): boolean {
     first: "Giovanni",
     last: "Benussi",
     twitter: "@giovannibenussi",
+    isDeleted: false,
   },
   {
     avatar:
