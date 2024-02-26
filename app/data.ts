@@ -57,6 +57,7 @@ const fakeContacts = {
   },
   /* Cambiamos el código de destroy para que haga un borrado lógico  */
   destroy(id: string): null {
+    
     return null;
   },
 };

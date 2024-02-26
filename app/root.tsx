@@ -13,11 +13,11 @@ import {
   useNavigation,
   useSubmit,
 } from "@remix-run/react";
-import { useEffect } from "react";
-import { useRouteError, isRouteErrorResponse } from "@remix-run/react";
+import { useEffect, FunctionComponent } from "react";
+import { useRouteError, isRouteErrorResponse, useFetcher } from "@remix-run/react";
 
 import appStylesHref from "./app.css";
-import { getContacts } from "./data";
+import { getContacts, ContactRecord } from "./data";
 
 export const action = async () => {
   return redirect(`/contacts/new`);
@@ -167,4 +167,28 @@ export function ErrorBoundary() {
       </body>
     </html>
   );
+}
+
+// Componente favorite
+export function Favorite() {
+  const Favorite: FunctionComponent<{
+    contact: Pick<ContactRecord, "favorite">;
+  }> = ({ contact }) => {
+    const fetcher = useFetcher();
+    const favorite = fetcher.formData
+      ? fetcher.formData.get("favorite") === "true"
+      : contact.favorite;
+  
+    return (
+      <fetcher.Form method="post">
+        <button
+          aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
+          name="favorite"
+          value={favorite ? "false" : "true"}
+        >
+          {favorite ? "★" : "☆"}
+        </button>
+      </fetcher.Form>
+    );
+  };
 }
