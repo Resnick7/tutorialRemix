@@ -2,7 +2,7 @@ import type { FunctionComponent } from "react";
 import { useFetcher } from "@remix-run/react";
 import { ContactRecord } from "../data";
 
-export function Favorite(contact: ContactRecord) {
+export function Favorite({contact}: {contact : ContactRecord}) {
   const fetcher = useFetcher();
   const favorite = fetcher.formData
     ? fetcher.formData.get("favorite") === "true"

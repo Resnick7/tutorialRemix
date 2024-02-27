@@ -16,7 +16,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 
   if (avatarIncomplete(contactData)) {
-    contactData.avatar = "holder.js/400x400";
+    contactData.avatar = "http://placekitten.com/200/300";
   }
 
   const contact = await createContact(contactData);

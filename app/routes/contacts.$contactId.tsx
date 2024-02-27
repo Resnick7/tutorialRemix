@@ -10,6 +10,7 @@ import { Favorite } from "~/components/favorite";
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.contactId, "Missing contactId param");
   const contact = await getContact(params.contactId);
+  console.debug({contact})
   return json({ contact });
 };
 
@@ -23,6 +24,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 
 export default function Contact() {
   const { contact } = useLoaderData<typeof loader>();
+  console.debug({contact})
   return (
     <div id="contact">
       <div>
