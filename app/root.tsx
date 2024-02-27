@@ -90,27 +90,27 @@ export default function App() {
           <nav>
             {contacts.length ? (
               <ul>
-                {contacts.
-                filter((contact) => contact.isDeleted != true).
-                map((contact) => (
-                  <li key={contact.id}>
-                    <NavLink
-                      className={({ isActive, isPending }) =>
-                        isActive ? "active" : isPending ? "pending" : ""
-                      }
-                      to={`contacts/${contact.id}`}
-                    >
-                      {contact.first || contact.last ? (
-                        <>
-                          {contact.first} {contact.last}
-                        </>
-                      ) : (
-                        <i>No Name</i>
-                      )}{" "}
-                      <Favorite contact={contact} />
-                    </NavLink>
-                  </li>
-                ))}
+                {contacts
+                  .filter((contact) => contact.isDeleted != true)
+                  .map((contact) => (
+                    <li key={contact.id}>
+                      <NavLink
+                        className={({ isActive, isPending }) =>
+                          isActive ? "active" : isPending ? "pending" : ""
+                        }
+                        to={`contacts/${contact.id}`}
+                      >
+                        {contact.first || contact.last ? (
+                          <>
+                            {contact.first} {contact.last}
+                          </>
+                        ) : (
+                          <i>No Name</i>
+                        )}{" "}
+                        <Favorite contact={contact} />
+                      </NavLink>
+                    </li>
+                  ))}
               </ul>
             ) : (
               <p>

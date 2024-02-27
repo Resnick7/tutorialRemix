@@ -3,7 +3,7 @@ import { json, redirect } from "@remix-run/node";
 
 import { Form, useNavigate } from "@remix-run/react";
 
-import { createContact, isEmpty } from "~/data";
+import { createContact, isEmpty, avatarIncomplete } from "~/data";
 
 import { isRouteErrorResponse, useRouteError } from "@remix-run/react";
 
@@ -14,6 +14,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   if (isEmpty(contactData)) {
     throw json("Está queriendo guardar un contacto vacío");
   }
+
+  if (avatarIncomplete(contactData)) {
+    contactData.avatar = "holder.js/400x400";
+  }
+
   const contact = await createContact(contactData);
 
   return redirect(`/contacts/${contact.id}`);
@@ -51,7 +56,6 @@ export default function EditContact() {
           aria-label="Avatar URL"
           name="avatar"
           placeholder="https://example.com/avatar.jpg"
-          defaultValue={"holder.js/300x200"}
           type="text"
           id="avatar"
         />
@@ -76,7 +80,6 @@ export function ErrorBoundary() {
   if (isRouteErrorResponse(error)) {
     return (
       <div>
-        <p>Algo</p>
         <h1>
           {error.status} {error.statusText}
         </h1>
