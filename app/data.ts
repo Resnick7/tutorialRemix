@@ -14,13 +14,16 @@ type ContactMutation = {
   avatar?: string;
   twitter?: string;
   notes?: string;
-  favorite?: boolean;
   isDeleted?: boolean;
 };
 
 export type ContactRecord = ContactMutation & {
   id: string;
   createdAt: string;
+};
+//Formato del string que almacena favoritos
+export type FavoriteRecord = {
+  id: string;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -60,6 +63,27 @@ const fakeContacts = {
     fakeContacts.records[id].isDeleted = true;
     return null;
   },
+
+};
+// Acciones que se pueden hacer con el string de FavoriteRecord
+const FavoriteRecord = {
+  records: {} as Record<string, FavoriteRecord>,
+
+  async add(id: string): Promise<FavoriteRecord>{
+    const newFavoriteRecord = { id };
+    FavoriteRecord.records[id] = newFavoriteRecord;
+    return newFavoriteRecord;
+  },
+
+  remove(id: string) {
+    delete FavoriteRecord.records[id];
+    return null;
+  },
+
+  getFavorites(){
+    return FavoriteRecord.records;
+  }
+
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -109,6 +133,19 @@ export function isEmpty(contact: Record<string, string>): boolean {
 
 export function avatarIncomplete(contact: Record<string, string>): boolean {
   return contact?.avatar.length === 0;
+}
+/// Funciones para favorito
+export async function addFavorite(id: string) {
+  const FavoriteRecordItem = await FavoriteRecord.add(id);
+  return FavoriteRecordItem;
+}
+
+export async function removeFavorite(id: string) {
+  FavoriteRecord.remove(id);
+}
+
+export async function getFavorite() {
+  return FavoriteRecord.getFavorites();
 }
 
 [
