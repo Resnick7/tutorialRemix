@@ -24,6 +24,7 @@ export type ContactRecord = ContactMutation & {
 //Formato del string que almacena favoritos
 export type FavoriteRecord = {
   id: string;
+  favorite: boolean;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,32 +59,40 @@ const fakeContacts = {
     fakeContacts.records[id] = updatedContact;
     return updatedContact;
   },
-  
+
   destroy(id: string): null {
     fakeContacts.records[id].isDeleted = true;
     return null;
   },
-
 };
 // Acciones que se pueden hacer con el string de FavoriteRecord
-const FavoriteRecord = {
+const favoriteRecord = {
   records: {} as Record<string, FavoriteRecord>,
 
-  async add(id: string): Promise<FavoriteRecord>{
-    const newFavoriteRecord = { id };
-    FavoriteRecord.records[id] = newFavoriteRecord;
+  async changeTrue(id: string) {
+    if (favoriteRecord.records[id]) {
+      const favorite = favoriteRecord.getFavorite(id);
+      const updatedFavorite = { ...favorite, favorite: true };
+      favoriteRecord.records[id] = updatedFavorite;
+      return updatedFavorite;
+    }
+    const newFavoriteRecord = { id, favorite: true };
+    favoriteRecord.records[id] = newFavoriteRecord;
     return newFavoriteRecord;
   },
 
   remove(id: string) {
-    delete FavoriteRecord.records[id];
+    favoriteRecord.records[id] = { id, favorite: false };
     return null;
   },
 
-  getFavorites(){
-    return FavoriteRecord.records;
-  }
-
+  getFavorite(id: string) {
+    if (!favoriteRecord.records[id]) {
+      const newFavoriteRecord = { id, favorite: false };
+      favoriteRecord.records[id] = newFavoriteRecord;
+    }
+    return favoriteRecord.records[id];
+  },
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -136,16 +145,16 @@ export function avatarIncomplete(contact: Record<string, string>): boolean {
 }
 /// Funciones para favorito
 export async function addFavorite(id: string) {
-  const FavoriteRecordItem = await FavoriteRecord.add(id);
+  const FavoriteRecordItem = await favoriteRecord.changeTrue(id);
   return FavoriteRecordItem;
 }
 
 export async function removeFavorite(id: string) {
-  FavoriteRecord.remove(id);
+  favoriteRecord.remove(id);
 }
 
-export async function getFavorite() {
-  return FavoriteRecord.getFavorites();
+export async function getFavorite(id: string) {
+  return favoriteRecord.getFavorite(id);
 }
 
 [

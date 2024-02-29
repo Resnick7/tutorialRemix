@@ -95,20 +95,20 @@ export default function App() {
                   .map((contact) => (
                     <tr key={contact.id}>
                       <td>
-                      <NavLink
-                        className={({ isActive, isPending }) =>
-                          isActive ? "active" : isPending ? "pending" : ""
-                        }
-                        to={`contacts/${contact.id}`}
-                      >
-                        {contact.first || contact.last ? (
-                          <>
-                            {contact.first} {contact.last}
-                          </>
-                        ) : (
-                          <i>No Name</i>
-                        )}{" "}
-                      </NavLink>
+                        <NavLink
+                          className={({ isActive, isPending }) =>
+                            isActive ? "active" : isPending ? "pending" : ""
+                          }
+                          to={`contacts/${contact.id}`}
+                        >
+                          {contact.first || contact.last ? (
+                            <>
+                              {contact.first} {contact.last}
+                            </>
+                          ) : (
+                            <i>No Name</i>
+                          )}{" "}
+                        </NavLink>
                       </td>
                       <td>
                         <Favorite contact={contact} />

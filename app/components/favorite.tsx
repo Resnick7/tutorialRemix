@@ -1,10 +1,24 @@
 import { useFetcher } from "@remix-run/react";
-import { ContactRecord, getFavorite  } from "../data";
+import {
+  ContactRecord,
+  FavoriteRecord,
+  getFavorite,
+  addFavorite,
+} from "../data";
+import type { FunctionComponent } from "react";
+import invariant from "tiny-invariant";
+import type { ActionFunctionArgs } from "@remix-run/node";
 
-export function Favorite ({contact}: {contact : ContactRecord}) {
-  const favoriteList = getFavorite();
+export const action = async ({ params, request }: ActionFunctionArgs) => {
+  invariant(params.contactId, "Missing contactId param");
+  const formData = await request.formData();
+  return addFavorite(params.contactId);
+};
+
+export async function Favorite({ contact }: { contact: ContactRecord }) {
+  const favoriteRecord = await getFavorite(contact.id);
   const fetcher = useFetcher();
-  const isFavorite = contact.some( contact => contact.id === favoriteList) //if que compruebe si el id del contacto está en favorito
+  const isFavorite = favoriteRecord.favorite;
 
   return (
     <fetcher.Form method="post">
@@ -17,9 +31,17 @@ export function Favorite ({contact}: {contact : ContactRecord}) {
       </button>
     </fetcher.Form>
   );
-};
+}
 
-///Función que si tocamos favorito controle si el id está en Favorito y lo agregue o remeuva según corresponda
+///Función que si tocamos favorito controle por id si es favorito o no y lo agregue o remueva según corresponda
+/*
 
-/// Boton usable en el navlist de contactos
+const Favorite: FunctionComponent<{
+  contact: Pick<ContactRecord, "favorite">;
+}> = ({ contact }) => {
+  const fetcher = useFetcher();
+  const favorite = fetcher.formData
+    ? fetcher.formData.get("favorite") === "true"
+    : contact.favorite;
 
+*/

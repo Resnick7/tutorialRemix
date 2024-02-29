@@ -2,9 +2,7 @@ import type { ActionFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { useFetcher } from "@remix-run/react";
-import { ContactRecord } from "../data";
-
-import { deleteContact } from "../data";
+import { ContactRecord, deleteContact } from "../data";
 
 export function isDeleted(contact: ContactRecord) {
   const fetcher = useFetcher();
