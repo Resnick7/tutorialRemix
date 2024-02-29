@@ -89,11 +89,12 @@ export default function App() {
           </div>
           <nav>
             {contacts.length ? (
-              <ul>
+              <table>
                 {contacts
                   .filter((contact) => contact.isDeleted != true)
                   .map((contact) => (
-                    <li key={contact.id}>
+                    <tr key={contact.id}>
+                      <td>
                       <NavLink
                         className={({ isActive, isPending }) =>
                           isActive ? "active" : isPending ? "pending" : ""
@@ -107,11 +108,14 @@ export default function App() {
                         ) : (
                           <i>No Name</i>
                         )}{" "}
-                        <Favorite contact={contact} />
                       </NavLink>
-                    </li>
+                      </td>
+                      <td>
+                        <Favorite contact={contact} />
+                      </td>
+                    </tr>
                   ))}
-              </ul>
+              </table>
             ) : (
               <p>
                 <i>No contacts</i>
